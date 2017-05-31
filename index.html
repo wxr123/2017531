@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+	<style type="text/css">
+		div{
+			width:100px;
+			height:100px;
+			background:red;
+			margin:20px auto;
+		}
+		@-webkit-keyframes test{
+			0%{
+				-webkit-transform:rotate(0deg);
+			}
+			25%{
+				-webkit-transform:rotate(-25deg);
+			}
+			50%{
+				-webkit-transform:rotate(25deg);
+			}
+			75%{
+				-webkit-transform:rotate(25deg);
+			}
+			100%{
+				-webkit-transform:rotate(0deg);
+			}
+		}
+		.yao{
+			-webkit-animation:1s test linear;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oBox=document.getElementById('box');
+			var lastX=0;
+			var lastY=0;
+			var lastZ=0;
+
+			if(window.DeviceMotionEvent){
+				window.addEventListener('devicemotion',function(ev){
+					var acc=ev.accelerationIncludingGravity;
+
+					if(Math.abs(acc.x-lastX)>10 || Math.abs(acc.y-lastY)>10 || Math.abs(acc.z-lastZ)>10){
+						oBox.classList.add('yao');
+					}
+				})
+			};
+			oBox.addEventListener('webkitAnimationEnd',function(){
+				oBox.classList.remove('yao');
+			},false)
+		}
+	</script>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>
